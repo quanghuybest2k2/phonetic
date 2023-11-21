@@ -117,5 +117,46 @@ class Phonetics
             return json_encode($results);
         }
     }
-    //
+    /**
+     * Chuyển đổi một chuỗi thành mã âm thanh Metaphone và hiển thị hoặc trả về theo định dạng đã chọn.
+     *
+     * @param string $string Chuỗi đầu vào
+     * @param string $format Định dạng đầu ra (txt, array hoặc json)
+     * @return mixed Mã âm thanh Metaphone theo định dạng đã chọn
+     */
+    public static function metaphone(string $string, string $format = self::FORMAT_TXT)
+    {
+        $words = array_unique(explode(' ', strtolower(preg_replace("/[^\w\s]/", "", $string))));
+
+        $results = [];
+
+        foreach ($words as $word) {
+
+            switch ($format) {
+                case self::FORMAT_TXT:
+                    echo '[ ' . $word . ' ] => ' . metaphone($word) . '<br>';
+                    break;
+
+                case self::FORMAT_ARRAY:
+                    $results[$word] = metaphone($word);
+                    break;
+
+                case self::FORMAT_JSON:
+                    $results[$word] = metaphone($word);
+                    break;
+
+                default:
+                    # code...
+                    break;
+            }
+        }
+
+        if ($format == self::FORMAT_ARRAY) {
+            return $results;
+        }
+
+        if ($format == self::FORMAT_JSON) {
+            return json_encode($results);
+        }
+    }
 }
