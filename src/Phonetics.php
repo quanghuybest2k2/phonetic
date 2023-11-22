@@ -159,4 +159,47 @@ class Phonetics
             return json_encode($results);
         }
     }
+    /**
+     * Chuyển đổi một chuỗi thành mã âm thanh NYSIIS và hiển thị hoặc trả về theo định dạng đã chọn.
+     *
+     * @param string $string Chuỗi đầu vào
+     * @param string $format Định dạng đầu ra (txt, array hoặc json)
+     * @return mixed Mã âm thanh NYSIIS theo định dạng đã chọn
+     */
+    public static function nysiis(string $string, string $format = self::FORMAT_TXT)
+    {
+        $words = array_unique(explode(' ', strtolower(preg_replace("/[^\w\s]/", "", $string))));
+
+        $results = [];
+
+        foreach ($words as $word) {
+
+            switch ($format) {
+                case self::FORMAT_TXT:
+                    echo '[ ' . $word . ' ] => ' . Nysiis::encode($word) . '<br>';
+                    break;
+
+                case self::FORMAT_ARRAY:
+                    $results[$word] = Nysiis::encode($word);
+                    break;
+
+                case self::FORMAT_JSON:
+                    $results[$word] = Nysiis::encode($word);
+                    break;
+
+                default:
+                    # code...
+                    break;
+            }
+        }
+
+        if ($format == self::FORMAT_ARRAY) {
+            return $results;
+        }
+
+        if ($format == self::FORMAT_JSON) {
+            return json_encode($results);
+        }
+    }
+    //
 }
