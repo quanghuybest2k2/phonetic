@@ -2,8 +2,12 @@
 
 namespace Phonetic;
 
+use Phonetic\Nysiis;
+use Phonetic\FormatValidationTrait;
+
 class Phonetics
 {
+    use FormatValidationTrait;
     const FORMAT_TXT = 'txt';
     const FORMAT_ARRAY = 'array';
     const FORMAT_JSON = 'json';
@@ -19,6 +23,8 @@ class Phonetics
      */
     public static function symbols(string $string, string $format = self::FORMAT_TXT, string $language = self::LANGUAGE_DEFAULT)
     {
+        self::validateFormat($format);
+
         $words = array_unique(explode(' ', strtolower(preg_replace("/[^\w\s]/", "", $string))));
         // có dấu phẩy
         // $words = array_unique(explode(' ', strtolower(preg_replace("/[^\w\s,]/", "", $string))));
@@ -84,6 +90,8 @@ class Phonetics
      */
     public static function soundex(string $string, string $format = self::FORMAT_TXT)
     {
+        self::validateFormat($format);
+
         $words = array_unique(explode(' ', strtolower(preg_replace("/[^\w\s]/", "", $string))));
 
         $results = [];
@@ -126,6 +134,8 @@ class Phonetics
      */
     public static function metaphone(string $string, string $format = self::FORMAT_TXT)
     {
+        self::validateFormat($format);
+
         $words = array_unique(explode(' ', strtolower(preg_replace("/[^\w\s]/", "", $string))));
 
         $results = [];
@@ -160,31 +170,38 @@ class Phonetics
         }
     }
     /**
-     * Chuyển đổi một chuỗi thành mã âm thanh NYSIIS và hiển thị hoặc trả về theo định dạng đã chọn.
+     * Phân tích các ký tự của một chuỗi và hiển thị chúng theo định dạng đã cho.
      *
      * @param string $string Chuỗi đầu vào
      * @param string $format Định dạng đầu ra (txt, array hoặc json)
-     * @return mixed Mã âm thanh NYSIIS theo định dạng đã chọn
+     * @param string $language Ngôn ngữ cho dữ liệu phân tích (mặc định: en_us)
+     * @return mixed Dữ liệu phân tích theo định dạng đã chọn
+     * @throws \InvalidArgumentException Nếu định dạng không hợp lệ
      */
     public static function nysiis(string $string, string $format = self::FORMAT_TXT)
     {
+        self::validateFormat($format);
+
         $words = array_unique(explode(' ', strtolower(preg_replace("/[^\w\s]/", "", $string))));
 
         $results = [];
 
         foreach ($words as $word) {
 
+            $encodedWord = Nysiis::encode($word);
+
             switch ($format) {
                 case self::FORMAT_TXT:
-                    echo '[ ' . $word . ' ] => ' . Nysiis::encode($word) . '<br>';
+                    // echo '[ ' . $word . ' ] => ' . Nysiis::encode($word) . '<br>';
+                    echo "[ {$word} ] => {$encodedWord}<br>";
                     break;
 
                 case self::FORMAT_ARRAY:
-                    $results[$word] = Nysiis::encode($word);
+                    $results[$word] = $encodedWord;
                     break;
 
                 case self::FORMAT_JSON:
-                    $results[$word] = Nysiis::encode($word);
+                    $results[$word] = $encodedWord;
                     break;
 
                 default:

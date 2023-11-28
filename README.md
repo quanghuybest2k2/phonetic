@@ -43,17 +43,12 @@ Array ( [firewall] => Array ( [0] => ˈfaɪɹwɑɫ ) [is] => Array ( [0] => ˈɪ
 ## NYSIIS encoding
 
 ```php
-Phonetics::nysiis($str);
+Phonetics::nysiis($word);
 /*
-Returns:
-
-[ to ] => T
-[ be ] => B
-[ or ] => AR
-[ not ] => NAT
-[ that ] => THAT
+output:
+FARAALL
 [ is ] => A
-[ the ] => TH
-[ question ] => GAASTAAN
+[ good ] => GAAD
+[ huy ] => HY
 */
 ```
