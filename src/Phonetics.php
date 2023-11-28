@@ -2,6 +2,8 @@
 
 namespace Phonetic;
 
+use Phonetic\Nysiis;
+
 class Phonetics
 {
     const FORMAT_TXT = 'txt';
