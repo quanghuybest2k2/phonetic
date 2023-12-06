@@ -73,11 +73,11 @@ class Phonetics
             }
         }
 
-        if ($format == 'array') {
+        if ($format == self::FORMAT_ARRAY) {
             return $results;
         }
 
-        if ($format == 'json') {
+        if ($format == self::FORMAT_JSON) {
             return json_encode($results);
         }
     }

@@ -25,6 +25,7 @@ $word = "Firewall is good Huy";
 
 // txt
 echo "<strong>Đây là format Text: </strong><br/>";
+// Phonetics::symbols(input, format, language)
 $phoneticSymbols = Phonetics::symbols($word, 'txt');
 
 echo "<br/> <strong>Đây là format Array: </strong><br/>";
