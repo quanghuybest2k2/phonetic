@@ -17,6 +17,7 @@ Example
 ```php
 <?php
 
+use Phonetic\Language;
 use Phonetic\Phonetics;
 
 require __DIR__ . '/vendor/autoload.php';
@@ -25,8 +26,7 @@ $word = "Firewall is good Huy";
 
 // txt
 echo "<strong>Đây là format Text: </strong><br/>";
-// Phonetics::symbols(input, format, language)
-$phoneticSymbols = Phonetics::symbols($word, 'txt');
+$phoneticSymbols = Phonetics::symbols($word, Phonetics::FORMAT_TXT, Language::EN_UK);
 
 echo "<br/> <strong>Đây là format Array: </strong><br/>";
 // array
@@ -48,6 +48,7 @@ Array ( [firewall] => Array ( [0] => /ˈfaɪɹwɑɫ/ ) [is] => Array ( [0] => /�
 "{\"firewall\":[\"\\\/\\u02c8fa\\u026a\\u0279w\\u0251\\u026b\\\/\"],\"is\":[\"\\\/\\u02c8\\u026az\\\/\",\" \\\/\\u026az\\\/\"],\"good\":[\"\\\/\\u02c8\\u0261\\u028ad\\\/\",\" \\\/\\u0261\\u026ad\\\/\"],\"huy\":[\"huy\"]}"
 */
 ```
+
 ## NYSIIS encoding
 
 ```php
@@ -77,7 +78,9 @@ output:
 [ huy ] => HY
 */
 ```
+
 ## Soundex
+
 ```php
 echo "<br/> <strong>Soundex: </strong><br/>";
 Phonetics::soundex($word, 'txt');

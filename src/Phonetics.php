@@ -11,7 +11,6 @@ class Phonetics
     const FORMAT_TXT = 'txt';
     const FORMAT_ARRAY = 'array';
     const FORMAT_JSON = 'json';
-    const LANGUAGE_DEFAULT = 'en_us';
 
     /**
      * Phân tích các ký tự của một chuỗi và hiển thị chúng theo định dạng đã cho.
@@ -21,7 +20,7 @@ class Phonetics
      * @param string $language Ngôn ngữ cho dữ liệu phân tích (mặc định: en_us)
      * @return mixed Dữ liệu phân tích theo định dạng đã chọn
      */
-    public static function symbols(string $string, string $format = self::FORMAT_TXT, string $language = self::LANGUAGE_DEFAULT)
+    public static function symbols(string $string, string $format = self::FORMAT_TXT, string $language = Language::EN_US)
     {
         self::validateFormat($format);
 
@@ -73,11 +72,11 @@ class Phonetics
             }
         }
 
-        if ($format == self::FORMAT_ARRAY) {
+        if ($format == 'array') {
             return $results;
         }
 
-        if ($format == self::FORMAT_JSON) {
+        if ($format == 'json') {
             return json_encode($results);
         }
     }
