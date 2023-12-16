@@ -8,6 +8,7 @@ use Phonetic\FormatValidationTrait;
 class Phonetics
 {
     use FormatValidationTrait;
+
     const FORMAT_TXT = 'txt';
     const FORMAT_ARRAY = 'array';
     const FORMAT_JSON = 'json';
@@ -41,10 +42,6 @@ class Phonetics
                  */
                 if (isset($res[$word])) {
                     $phoneticWord = $res[$word];
-                    // Loại bỏ dấu "/" từ chuỗi phiên âm IPA
-                    // $phoneticWord = str_replace('/', '', $phoneticWord);
-                    // preg_match('/[^,\/]+/', $phoneticWord, $matches);
-                    // $phoneticWord = $matches[0];
                 } else {
                     $phoneticWord = $word;
                 }
@@ -54,8 +51,7 @@ class Phonetics
 
             switch ($format) {
                 case self::FORMAT_TXT:
-                    // echo '[ ' . $word . ' ] => ' . $res[$word] . '<br>';
-                    echo $phoneticWord . ' ';
+                    $results[] = $phoneticWord;
                     break;
 
                 case self::FORMAT_ARRAY:
@@ -79,7 +75,9 @@ class Phonetics
         if ($format == 'json') {
             return json_encode($results);
         }
+        return implode(' ', $results);
     }
+
     /**
      * Chuyển đổi một chuỗi thành mã âm thanh Soundex và hiển thị hoặc trả về theo định dạng đã chọn.
      *
@@ -124,6 +122,7 @@ class Phonetics
             return json_encode($results);
         }
     }
+
     /**
      * Chuyển đổi một chuỗi thành mã âm thanh Metaphone và hiển thị hoặc trả về theo định dạng đã chọn.
      *
@@ -168,6 +167,7 @@ class Phonetics
             return json_encode($results);
         }
     }
+
     /**
      * Phân tích các ký tự của một chuỗi và hiển thị chúng theo định dạng đã cho.
      *

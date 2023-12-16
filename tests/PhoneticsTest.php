@@ -6,18 +6,24 @@ use PHPUnit\Framework\TestCase;
 
 class PhoneticsTest extends TestCase
 {
-    public function testSymbolsTxtFormat()
+    public function testSymbolsTxtFormatWithEN_US()
     {
-        $inputString = "Hello World";
-        $expectedOutput = "/həˈɫoʊ/, /hɛˈɫoʊ/ /ˈwɝɫd/ ";
+        $inputString = "Firewall is good Huy";
+        $expectedOutput = "/ˈfaɪɹwɑɫ/ /ˈɪz/, /ɪz/ /ˈɡʊd/, /ɡɪd/ huy";
 
-        ob_start();
-        Phonetics::symbols($inputString, Phonetics::FORMAT_TXT);
-        $actualOutput = ob_get_clean();
+        $actualOutput = Phonetics::symbols($inputString, Phonetics::FORMAT_TXT, Language::EN_US);
 
         $this->assertEquals($expectedOutput, $actualOutput);
     }
+    public function testSymbolsTxtFormatWithEN_UK()
+    {
+        $inputString = "Firewall is good Huy";
+        $expectedOutput = "/fˈa‍ɪ‍əwɔːl/ /ˈɪz/ /ɡˈʊd/ huy";
 
+        $actualOutput = Phonetics::symbols($inputString, Phonetics::FORMAT_TXT, Language::EN_UK);
+
+        $this->assertEquals($expectedOutput, $actualOutput);
+    }
     public function testSymbolsArrayFormat()
     {
         $inputString = "Hello World";

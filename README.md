@@ -26,7 +26,8 @@ $word = "Firewall is good Huy";
 
 // txt
 echo "<strong>Đây là format Text: </strong><br/>";
-$phoneticSymbols = Phonetics::symbols($word, Phonetics::FORMAT_TXT, Language::EN_UK);
+$phoneticSymbols = Phonetics::symbols($word, Phonetics::FORMAT_TXT, Language::EN_US);
+echo $phoneticSymbols;
 
 echo "<br/> <strong>Đây là format Array: </strong><br/>";
 // array
@@ -38,6 +39,19 @@ echo "<br/> <strong>Đây là format Json: </strong><br/>";
 $phoneticJson = json_encode(Phonetics::symbols($word, 'json'));
 echo $phoneticJson;
 
+//---------------------------------- use Array --------------------------------
+echo "<br/> <strong>Xử lý array: </strong><br/>";
+$phoneticSymbols = Phonetics::symbols($word, 'array');
+$pronunciation = '';
+
+foreach ($phoneticSymbols as $wordPhonetics) {
+    // phần tử đầu tiên của mảng
+    $firstPhoneticSymbol = reset($wordPhonetics);
+    $pronunciation = $firstPhoneticSymbol;
+    break;
+}
+echo $pronunciation;
+
 /*
 output:
 Đây là format Text:
@@ -46,6 +60,8 @@ output:
 Array ( [firewall] => Array ( [0] => /ˈfaɪɹwɑɫ/ ) [is] => Array ( [0] => /ˈɪz/ [1] => /ɪz/ ) [good] => Array ( [0] => /ˈɡʊd/ [1] => /ɡɪd/ ) [huy] => Array ( [0] => huy ) )
 Đây là format Json:
 "{\"firewall\":[\"\\\/\\u02c8fa\\u026a\\u0279w\\u0251\\u026b\\\/\"],\"is\":[\"\\\/\\u02c8\\u026az\\\/\",\" \\\/\\u026az\\\/\"],\"good\":[\"\\\/\\u02c8\\u0261\\u028ad\\\/\",\" \\\/\\u0261\\u026ad\\\/\"],\"huy\":[\"huy\"]}"
+Xử lý array:
+/ˈfaɪɹwɑɫ/
 */
 ```
 
